@@ -1,0 +1,33 @@
+version: "3.1"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    volumes:
+      - ./onlinecourses:/code/:consistent
+    command: /tmp/api_entrypoint.sh
+    ports:
+      - 8080:8000
+    env_file: 
+      - ./.docker/api.env
+      
+    # links:
+    #   - redis
+      
+#   redis:
+#     image: redis:6.0.5-alpine
+    
+#   celery:
+#     restart: always
+#     build:
+#       context: .
+#       dockerfile: api.Dockerfile
+#     volumes:
+#       - ./:/code/:consistent
+#     command: celery worker -A onlinecourses -l info -E
+#     environment:
+#       DJANGO_SETTINGS_MODULE: "config.settings"
+#     links:
+#       - redis
