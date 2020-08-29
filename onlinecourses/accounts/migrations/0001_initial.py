@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='UserRegistrationToken',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('token', models.UUIDField(default=accounts.models.generate_token)),
+                ('token', models.UUIDField(default=accounts.models.generate_uuid_token)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

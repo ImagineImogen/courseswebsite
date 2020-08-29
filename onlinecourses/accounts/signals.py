@@ -6,5 +6,4 @@ from django.contrib.auth.models import User
 
 @receiver(post_save, sender = User)
 def save_profile (sender, instance, **kwargs):
-    print(instance.profile)
     instance.profile.save()

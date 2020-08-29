@@ -42,7 +42,7 @@ def activation(request):
         try:
             activation = UserRegistrationToken.objects.get(token=token)
         except UserRegistrationToken.DoesNotExist:
-            raise Http404 ("Something went wrong")
+            raise Http404("Something went wrong")
         user = activation.user #returns the User object
         user.is_active = True
         user.save()

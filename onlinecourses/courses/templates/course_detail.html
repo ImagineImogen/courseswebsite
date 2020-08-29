@@ -1,0 +1,22 @@
+{% extends 'courses_base.html' %}
+
+{% block content %}
+    <h1>Title: {{ course.title }}</h1>
+    <h3>Description: {{ course.description }}</h3>
+    </h3>
+    <h4>Modules</h4>
+    <ul>
+        {% for coursemodule in course.coursemodule_set.all %}
+            <li>
+                {{ coursemodule }}
+            </li>
+            {% for section in coursemodule.sections.all %}
+            <li>
+                {{ section }}
+            </li>
+            {% endfor%}
+            {% empty %}
+            <p>There are no modules in this course yet.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

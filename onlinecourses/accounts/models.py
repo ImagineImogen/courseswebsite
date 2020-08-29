@@ -1,13 +1,9 @@
-import uuid
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from core.utils import generate_uuid_token
 
-
-def generate_token ():
-    token = uuid.uuid1()
-    return token
 
 
 class UserRegistrationToken (models.Model):
@@ -15,7 +11,7 @@ class UserRegistrationToken (models.Model):
     Store user activation tokens.
     '''
     user = models.OneToOneField(User, on_delete = models.CASCADE)
-    token = models.UUIDField(default=generate_token)
+    token = models.UUIDField(default=generate_uuid_token)
 
     def __str__(self):
         return f"{self.user}'s token"
@@ -24,10 +20,7 @@ class UserRegistrationToken (models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     bio = models.TextField(blank=True, null=True)
-    #image = models.ImageField(default='.jpg')
+    image = models.ImageField(upload_to='uploads', blank=True, null=True)
 
-
-# @receiver(post_save, sender = User)
-# def save_profile (sender, instance, **kwargs):
-#     print(instance.profile)
-#     instance.profile.save()
+    def __str__(self):
+        return f"{self.user}'s profile"
